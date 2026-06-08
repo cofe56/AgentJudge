@@ -4,42 +4,42 @@ AgentJudge is a Python CLI tool for automatic LLM-as-a-Judge evaluation of AI mo
 
 ## Features
 
-- Interactive CLI menu (just run `python -m agentjudge`).
-- Generates built-in scenario packages as `.txt` files.
-- Parses filled `.txt` scenario files and JSON arrays.
-- Supports OpenAI-compatible APIs: OpenAI, Groq, and local Ollama.
-- Supports separate clients for Anthropic Claude and Google Gemini.
-- Prints evaluation progress, calculates average score, and writes `report.json`.
-- Uses only files and Python's standard `json` module. No database is required.
+- **Single-Word Command**: Just run `agentjudge` in your terminal.
+- **Interactive CLI Menu**: Easy numbered selection for scenarios and AI models.
+- **Auto-Formatting**: Generates and evaluates `.txt` files automatically without needing to type extensions.
+- **Smart Generation**: Creates a separate `_questions.txt` file for easy copy-pasting to AI chats, alongside the main template.
+- **API Key Persistence**: Securely saves your API keys locally so you don't have to enter them every time.
+- Supports OpenAI, Groq, local Ollama, Anthropic Claude, and Google Gemini.
+- Prints evaluation progress, calculates average score, and writes a readable `report.txt`.
 
 ## Usage
 
-Run the interactive menu from the project directory:
+Run the interactive menu from anywhere:
 
 ```powershell
-python -m agentjudge
+agentjudge
 ```
 
 Or use the CLI arguments for automation:
 
 List scenarios:
 ```powershell
-python -m agentjudge scenarios
+agentjudge scenarios
 ```
 
-Generate a scenario file:
+Generate a scenario file (creates `programming.txt` and `programming_questions.txt`):
 ```powershell
-python -m agentjudge generate --package programming --output programming.txt
+agentjudge generate --package programming --output programming
 ```
 
-Fill the `=== AI Answer ===` sections, then evaluate:
+Fill the `=== AI Answer ===` sections in `programming.txt`, then evaluate:
 ```powershell
-python -m agentjudge evaluate --input programming.txt --provider openai --api-key YOUR_KEY --model gpt-4o-mini --report report.json
+agentjudge evaluate --input programming --provider openai --model gpt-4o-mini --report report
 ```
 
 Evaluate through local Ollama:
 ```powershell
-python -m agentjudge evaluate --input programming.txt --provider ollama --model llama3.1 --base-url http://localhost:11434/v1
+agentjudge evaluate --input programming --provider ollama --model llama3.1 --base-url http://localhost:11434/v1
 ```
 
 JSON input can be either an array or an object with a `cases` array:

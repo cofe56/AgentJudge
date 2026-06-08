@@ -93,12 +93,17 @@ class ReportWriter:
     def write(self, output_path: Path, records: list[EvaluationRecord], provider: str, model: str) -> None:
         output_path.parent.mkdir(parents=True, exist_ok=True)
         average = sum(record.score for record in records) / len(records) if records else 0.0
-        report = {
-            "provider": provider,
-            "model": model,
-            "total": len(records),
-            "average_score": round(average, 2),
-            "results": [record.to_json() for record in records],
-        }
-        output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+        lines = [
+            f"=== AgentJudge Evaluation Report ===",
+            f"Provider: {provider}",
+            f"Model: {model}",
+            f"Total Questions: {len(records)}",
+            f"Average Score: {average:.2f}/10",
+            f"====================================\n"
+        ]
+        for idx, rec in enumerate(records, 1):
+            lines.append(f"--- Question {idx} ---")
+            lines.append(f"Score: {rec.score}/10")
+            lines.append(f"Reasoning:\n{rec.reasoning}\n")
+        output_path.write_text("\n".join(lines), encoding="utf-8")
 

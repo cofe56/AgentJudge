@@ -129,19 +129,31 @@ def interactive_menu() -> int:
                 if 0 <= idx < len(packages):
                     package_key = packages[idx].key
                     
-            out_file = input("Enter output filename (e.g., test.txt): ").strip()
+            out_file = input("Enter output filename (will be saved as .txt): ").strip()
             if not out_file:
                 continue
+            if not out_file.endswith(".txt"):
+                out_file += ".txt"
             try:
                 generate_scenario(package_key, out_file)
             except (KeyError, ValueError, FileNotFoundError) as e:
                 print(f"Error: {e}")
         elif choice == "3":
             print("\n--- Evaluating Answers ---")
-            in_file = input("Answers file (.txt or .json): ").strip()
+            in_file = input("Answers filename (don't include .txt): ").strip()
             if not in_file:
                 continue
-            provider = input("Choose provider (openai, groq, ollama, anthropic, gemini) [openai]: ").strip() or "openai"
+            if not in_file.endswith(".txt"):
+                in_file += ".txt"
+            print("\nAvailable Providers:")
+            print(" 1. openai")
+            print(" 2. groq")
+            print(" 3. ollama")
+            print(" 4. anthropic")
+            print(" 5. gemini")
+            prov_choice = input("Choose a provider (1-5) or enter name [1]: ").strip() or "1"
+            providers_map = {"1": "openai", "2": "groq", "3": "ollama", "4": "anthropic", "5": "gemini"}
+            provider = providers_map.get(prov_choice, prov_choice)
             
             api_key = ""
             if provider != "ollama":
@@ -185,7 +197,9 @@ def interactive_menu() -> int:
                 if model_input:
                     model_name = model_input
 
-            report_file = input("Report filename [report.json]: ").strip() or "report.json"
+            report_file = input("Report filename [report.txt]: ").strip() or "report.txt"
+            if not report_file.endswith(".txt"):
+                report_file += ".txt"
             
             args = argparse.Namespace(
                 input=in_file,
@@ -193,7 +207,7 @@ def interactive_menu() -> int:
                 api_key=api_key,
                 model=model_name,
                 base_url="",
-                format="json",
+                format="txt",
                 report=report_file,
                 timeout=60
             )
