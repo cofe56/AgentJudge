@@ -1,0 +1,30 @@
+=== Question ===
+Analyze the main causes of the fall of the Western Roman Empire.
+=== Reference ===
+A combination of military overstretch, constant barbarian invasions, severe economic inflation, reliance on mercenary armies, and political instability/corruption.
+=== AI Answer ===
+The fall resulted from a combination of military overstretch, constant barbarian invasions, severe economic inflation, reliance on mercenary armies, and political instability/corruption. These factors collectively undermined the empire’s ability to defend its borders, maintain internal cohesion, and sustain its economy.
+=== Question ===
+What was the significance of the Peace of Westphalia in 1648?
+=== Reference ===
+It ended the Thirty Years' War and established the modern concept of state sovereignty, where nations have exclusive right over their territory and domestic affairs without external interference.
+=== AI Answer ===
+It ended the Thirty Years’ War and established the modern concept of state sovereignty, where nations have exclusive right over their territory and domestic affairs without external interference. This fundamentally reshaped European politics and international law.
+=== Question ===
+Describe the socio-economic impacts of the Black Death in 14th-century Europe.
+=== Reference ===
+Massive population loss led to a severe labor shortage, which increased wages for peasants, weakened the feudal system, and spurred technological innovation.
+=== AI Answer ===
+Massive population loss led to a severe labor shortage, which increased wages for peasants, weakened the feudal system, and spurred technological innovation. The restructuring of labor relations contributed to long-term economic and social changes.
+=== Question ===
+Explain the causes and outcomes of the Meiji Restoration in Japan.
+=== Reference ===
+Triggered by Western pressure, Japan overthrew the shogunate to restore imperial rule. It led to rapid industrialization, modernization, and military expansion, transforming Japan into a world power.
+=== AI Answer ===
+Triggered by Western pressure, Japan overthrew the shogunate to restore imperial rule. It led to rapid industrialization, modernization, and military expansion, transforming Japan into a world power within decades.
+=== Question ===
+What were the primary geopolitical consequences of the Yalta Conference in 1945?
+=== Reference ===
+It divided Germany into occupation zones, established the framework for the UN, and effectively allowed the Soviet Union to create a sphere of influence in Eastern Europe, setting the stage for the Cold War.
+=== AI Answer ===
+It divided Germany into occupation zones, established the framework for the UN, and effectively allowed the Soviet Union to create a sphere of influence in Eastern Europe, setting the stage for the Cold War.

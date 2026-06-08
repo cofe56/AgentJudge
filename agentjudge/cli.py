@@ -113,6 +113,10 @@ def interactive_menu() -> int:
                 continue
             provider = input("Choose provider (openai, groq, ollama, anthropic, gemini) [openai]: ").strip() or "openai"
             
+            api_key = ""
+            if provider != "ollama":
+                api_key = input(f"Enter API key for {provider} (leave empty to use env variable): ").strip()
+            
             model_name = ""
             if provider == "ollama":
                 print("\nPopular Ollama models:")
@@ -134,13 +138,18 @@ def interactive_menu() -> int:
                     model_name = input("Enter model name: ").strip()
                 else:
                     model_name = "llama3.1"
+            else:
+                # Optionally allow specifying the model for cloud providers
+                model_input = input(f"Enter model name (leave empty for default): ").strip()
+                if model_input:
+                    model_name = model_input
 
             report_file = input("Report filename [report.json]: ").strip() or "report.json"
             
             args = argparse.Namespace(
                 input=in_file,
                 provider=provider,
-                api_key="",
+                api_key=api_key,
                 model=model_name,
                 base_url="",
                 format="json",
