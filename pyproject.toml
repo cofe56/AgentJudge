@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "AgentJudge"
+version = "0.1.0"
+description = "CLI tool for LLM-as-a-Judge evaluation of AI answers."
+requires-python = ">=3.10"
+
+[project.scripts]
+AgentJudge = "agentjudge.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["agentjudge*"]
+
