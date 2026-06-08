@@ -9,9 +9,9 @@ from agentjudge.models import EvaluationRecord, TestCase
 from agentjudge.scenarios import ScenarioPackage
 
 
-QUESTION_MARKER = "=== Питання ==="
-REFERENCE_MARKER = "=== Еталон ==="
-ANSWER_MARKER = "=== Відповідь ШІ ==="
+QUESTION_MARKER = "=== Question ==="
+REFERENCE_MARKER = "=== Reference ==="
+ANSWER_MARKER = "=== AI Answer ==="
 
 
 class ScenarioWriter:

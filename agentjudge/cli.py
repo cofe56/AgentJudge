@@ -39,9 +39,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 def list_scenarios() -> int:
     catalog = ScenarioCatalog()
-    print("Доступні пакети:")
+    print("Available packages:")
     for package in catalog.all():
-        print(f"- {package.key}: {package.title} ({len(package.cases)} питань)")
+        print(f"- {package.key}: {package.title} ({len(package.cases)} questions)")
     return 0
 
 
@@ -50,7 +50,7 @@ def generate_scenario(package_name: str, output: str) -> int:
     package = catalog.get(package_name)
     output_path = Path(output)
     ScenarioWriter().write_txt(package, output_path)
-    print(f"Згенеровано пакет '{package.title}': {output_path}")
+    print(f"Generated package '{package.title}': {output_path}")
     return 0
 
 
@@ -71,12 +71,99 @@ def evaluate_file(args: argparse.Namespace) -> int:
     average = sum(record.score for record in records) / len(records) if records else 0.0
     report_path = Path(args.report)
     ReportWriter().write(report_path, records, args.provider, args.model)
-    print(f"Середній бал: {average:.2f}/10")
-    print(f"Звіт збережено: {report_path}")
+    print(f"Average score: {average:.2f}/10")
+    print(f"Report saved: {report_path}")
+    return 0
+
+
+def interactive_menu() -> int:
+    while True:
+        print("\n" + "="*35)
+        print("  AgentJudge - Main Menu")
+        print("="*35)
+        print(" 1. View available scenarios")
+        print(" 2. Generate scenario template")
+        print(" 3. Evaluate answers file")
+        print(" 0. Exit")
+        print("="*35)
+        choice = input("Choose an action (0-3): ").strip()
+        
+        if choice == "0":
+            print("Exiting...")
+            break
+        elif choice == "1":
+            print("\n--- Available packages ---")
+            list_scenarios()
+        elif choice == "2":
+            print("\n--- Template Generation ---")
+            package = input("Enter package key (e.g., programming): ").strip()
+            if not package:
+                continue
+            out_file = input("Enter output filename (e.g., test.txt): ").strip()
+            if not out_file:
+                continue
+            try:
+                generate_scenario(package, out_file)
+            except (KeyError, ValueError, FileNotFoundError) as e:
+                print(f"Error: {e}")
+        elif choice == "3":
+            print("\n--- Evaluating Answers ---")
+            in_file = input("Answers file (.txt or .json): ").strip()
+            if not in_file:
+                continue
+            provider = input("Choose provider (openai, groq, ollama, anthropic, gemini) [openai]: ").strip() or "openai"
+            
+            model_name = ""
+            if provider == "ollama":
+                print("\nPopular Ollama models:")
+                print(" 1. llama3.1")
+                print(" 2. qwen2.5")
+                print(" 3. mistral")
+                print(" 4. gemma2")
+                print(" 5. Enter custom name...")
+                ollama_choice = input("Choose a model (1-5) [1]: ").strip() or "1"
+                if ollama_choice == "1":
+                    model_name = "llama3.1"
+                elif ollama_choice == "2":
+                    model_name = "qwen2.5"
+                elif ollama_choice == "3":
+                    model_name = "mistral"
+                elif ollama_choice == "4":
+                    model_name = "gemma2"
+                elif ollama_choice == "5":
+                    model_name = input("Enter model name: ").strip()
+                else:
+                    model_name = "llama3.1"
+
+            report_file = input("Report filename [report.json]: ").strip() or "report.json"
+            
+            args = argparse.Namespace(
+                input=in_file,
+                provider=provider,
+                api_key="",
+                model=model_name,
+                base_url="",
+                format="json",
+                report=report_file,
+                timeout=60
+            )
+            try:
+                evaluate_file(args)
+            except (FileNotFoundError, KeyError, ValueError, ApiError) as exc:
+                print(f"Error: {exc}", file=sys.stderr)
+        else:
+            print("Unknown choice. Please try again.")
     return 0
 
 
 def main(argv: list[str] | None = None) -> int:
+    if (argv is None and len(sys.argv) == 1) or (argv is not None and len(argv) == 0):
+        try:
+            return interactive_menu()
+        except KeyboardInterrupt:
+            print("\nInterrupted by user.", file=sys.stderr)
+            return 130
+
     parser = build_parser()
     args = parser.parse_args(argv)
 
@@ -88,10 +175,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.mode == "evaluate":
             return evaluate_file(args)
     except (FileNotFoundError, KeyError, ValueError, ApiError) as exc:
-        print(f"Помилка: {exc}", file=sys.stderr)
+        print(f"Error: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:
-        print("Перервано користувачем.", file=sys.stderr)
+        print("\nInterrupted by user.", file=sys.stderr)
         return 130
 
     parser.print_help()

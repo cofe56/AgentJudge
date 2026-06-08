@@ -12,11 +12,11 @@ from agentjudge.models import JudgeResult, TestCase
 
 
 BASE_SYSTEM_PROMPT = (
-    "Ти ШІ-Суддя для оцінювання відповідей моделей. "
-    "Порівняй 'Відповідь ШІ' з 'Еталоном' у контексті 'Питання'. "
-    "Постав score від 1 до 10, де 10 означає повну відповідність, 1 - повністю неправильну відповідь. "
-    "Оцінюй фактичну правильність, повноту, дотримання інструкцій і формат. "
-    "Не додавай Markdown, преамбули або додатковий текст поза заданим форматом. "
+    "You are an AI Judge evaluating model answers. "
+    "Compare the 'AI Answer' to the 'Reference' in the context of the 'Question'. "
+    "Provide a score from 1 to 10, where 10 means fully accurate/correct, and 1 means completely wrong. "
+    "Evaluate factual correctness, completeness, instruction following, and format. "
+    "Do not add Markdown, preambles, or additional text outside the requested format. "
 )
 
 
@@ -44,24 +44,24 @@ class AiProvider(ABC):
 
     def _build_user_prompt(self, test_case: TestCase) -> str:
         return (
-            f"Питання:\n{test_case.question}\n\n"
-            f"Еталон:\n{test_case.reference}\n\n"
-            f"Відповідь ШІ:\n{test_case.ai_answer}\n\n"
-            f"Бажаний формат відповіді судді: {self.config.output_format.upper()}."
+            f"Question:\n{test_case.question}\n\n"
+            f"Reference:\n{test_case.reference}\n\n"
+            f"AI Answer:\n{test_case.ai_answer}\n\n"
+            f"Required judge response format: {self.config.output_format.upper()}."
         )
 
     def _system_prompt(self) -> str:
         if self.config.output_format == "txt":
             return (
                 BASE_SYSTEM_PROMPT
-                + "Поверни тільки дві TXT-строки у форматі:\n"
+                + "Return only two TXT lines in format:\n"
                 + "score: 7\n"
-                + "reason: коротке пояснення українською"
+                + "reason: short explanation in English"
             )
         return (
             BASE_SYSTEM_PROMPT
-            + "Поверни тільки JSON у форматі: "
-            + '{"score": 7, "reason": "коротке пояснення українською"}'
+            + "Return only JSON in format: "
+            + '{"score": 7, "reason": "short explanation in English"}'
         )
 
     def _post_json(self, url: str, payload: dict[str, Any], headers: dict[str, str]) -> dict[str, Any]:

@@ -4,6 +4,7 @@ AgentJudge is a Python CLI tool for automatic LLM-as-a-Judge evaluation of AI mo
 
 ## Features
 
+- Interactive CLI menu (just run `python -m agentjudge`).
 - Generates built-in scenario packages as `.txt` files.
 - Parses filled `.txt` scenario files and JSON arrays.
 - Supports OpenAI-compatible APIs: OpenAI, Groq, and local Ollama.
@@ -13,32 +14,35 @@ AgentJudge is a Python CLI tool for automatic LLM-as-a-Judge evaluation of AI mo
 
 ## Usage
 
-Run from the project directory:
+Run the interactive menu from the project directory:
 
+```powershell
+python -m agentjudge
+```
+
+Or use the CLI arguments for automation:
+
+List scenarios:
 ```powershell
 python -m agentjudge scenarios
 ```
 
 Generate a scenario file:
-
 ```powershell
 python -m agentjudge generate --package programming --output programming.txt
 ```
 
-Fill the `=== Відповідь ШІ ===` sections, then evaluate:
-
+Fill the `=== AI Answer ===` sections, then evaluate:
 ```powershell
 python -m agentjudge evaluate --input programming.txt --provider openai --api-key YOUR_KEY --model gpt-4o-mini --report report.json
 ```
 
 Evaluate through local Ollama:
-
 ```powershell
 python -m agentjudge evaluate --input programming.txt --provider ollama --model llama3.1 --base-url http://localhost:11434/v1
 ```
 
 JSON input can be either an array or an object with a `cases` array:
-
 ```json
 [
   {
@@ -51,14 +55,13 @@ JSON input can be either an array or an object with a `cases` array:
 
 ## Built-In Packages
 
-- `basic-logic` - Базова логіка
-- `programming` - Програмування
-- `lore-literature` - Лор та література
-- `linguistics` - Мовознавство
-- `military-tech` - Військова техніка
-- `cybersecurity` - Кібербезпека
-- `customer-support` - Підтримка клієнтів
-- `text-formatting` - Форматування тексту
-- `text-analysis` - Аналіз тексту
-- `roleplay` - Рольова гра
-
+- `basic-logic` - Basic Logic
+- `programming` - Programming
+- `lore-literature` - Lore and Literature
+- `linguistics` - Linguistics
+- `military-tech` - Military Tech
+- `cybersecurity` - Cybersecurity
+- `customer-support` - Customer Support
+- `text-formatting` - Text Formatting
+- `text-analysis` - Text Analysis
+- `roleplay` - Roleplay
