@@ -1,0 +1,48 @@
+{
+  "provider": "groq",
+  "model": "",
+  "total": 5,
+  "average_score": 1.0,
+  "results": [
+    {
+      "question": "Analyze the main causes of the fall of the Western Roman Empire.",
+      "reference": "A combination of military overstretch, constant barbarian invasions, severe economic inflation, reliance on mercenary armies, and political instability/corruption.",
+      "ai_answer": "The empire collapsed because the Romans suddenly forgot how to speak Latin and decided to relocate to the moon to start an intergalactic fashion line.",
+      "score": 1.0,
+      "reason": "The AI answer is completely inaccurate and unrelated to historical facts about the fall of the Western Roman Empire.",
+      "raw_judge_response": "{\n  \"score\": 1,\n   \"reason\": \"The AI answer is completely inaccurate and unrelated to historical facts about the fall of the Western Roman Empire.\"\n}"
+    },
+    {
+      "question": "What was the significance of the Peace of Westphalia in 1648?",
+      "reference": "It ended the Thirty Years' War and established the modern concept of state sovereignty, where nations have exclusive right over their territory and domestic affairs without external interference.",
+      "ai_answer": "This event was actually the first global tournament for competitive pancake flipping, which officially outlawed the use of syrup in international politics.",
+      "score": 1.0,
+      "reason": "The AI answer is completely inaccurate and unrelated to the historical significance of the Peace of Westphalia.",
+      "raw_judge_response": "{\n  \"score\": 1,\n   \"reason\": \"The AI answer is completely inaccurate and unrelated to the historical significance of the Peace of Westphalia.\"\n}"
+    },
+    {
+      "question": "Describe the socio-economic impacts of the Black Death in 14th-century Europe.",
+      "reference": "Massive population loss led to a severe labor shortage, which increased wages for peasants, weakened the feudal system, and spurred technological innovation.",
+      "ai_answer": "Japan decided to modernize after a talking cat told the Emperor that the future of the nation depended on inventing high-speed trains powered exclusively by glitter.",
+      "score": 1.0,
+      "reason": "The AI answer is completely unrelated to the question about the Black Death in 14th-century Europe and instead provides a fictional and irrelevant story about Japan.",
+      "raw_judge_response": "{\n  \"score\": 1,\n   \"reason\": \"The AI answer is completely unrelated to the question about the Black Death in 14th-century Europe and instead provides a fictional and irrelevant story about Japan.\"\n}"
+    },
+    {
+      "question": "Explain the causes and outcomes of the Meiji Restoration in Japan.",
+      "reference": "Triggered by Western pressure, Japan overthrew the shogunate to restore imperial rule. It led to rapid industrialization, modernization, and military expansion, transforming Japan into a world power.",
+      "ai_answer": "The plague caused everyone in Europe to become expert ballroom dancers, leading to a total abandonment of agriculture in favor of nationwide dance competitions.",
+      "score": 1.0,
+      "reason": "The AI answer is completely unrelated to the Meiji Restoration in Japan, discussing instead a fictional scenario in Europe.",
+      "raw_judge_response": "{\n  \"score\": 1,\n   \"reason\": \"The AI answer is completely unrelated to the Meiji Restoration in Japan, discussing instead a fictional scenario in Europe.\"\n}"
+    },
+    {
+      "question": "What were the primary geopolitical consequences of the Yalta Conference in 1945?",
+      "reference": "It divided Germany into occupation zones, established the framework for the UN, and effectively allowed the Soviet Union to create a sphere of influence in Eastern Europe, setting the stage for the Cold War.",
+      "ai_answer": "The leaders agreed to turn the entire planet into a giant board game where the winner would receive a lifetime supply of invisible socks.",
+      "score": 1.0,
+      "reason": "The AI answer is completely inaccurate and unrelated to the actual geopolitical consequences of the Yalta Conference.",
+      "raw_judge_response": "{\n  \"score\": 1,\n   \"reason\": \"The AI answer is completely inaccurate and unrelated to the actual geopolitical consequences of the Yalta Conference.\"\n}"
+    }
+  ]
+}

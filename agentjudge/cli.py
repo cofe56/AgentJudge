@@ -49,8 +49,10 @@ def generate_scenario(package_name: str, output: str) -> int:
     catalog = ScenarioCatalog()
     package = catalog.get(package_name)
     output_path = Path(output)
-    ScenarioWriter().write_txt(package, output_path)
-    print(f"Generated package '{package.title}': {output_path}")
+    q_path = ScenarioWriter().write_txt(package, output_path)
+    print(f"Generated package '{package.title}' into two files:")
+    print(f" 1. Template file for evaluation: {output_path}")
+    print(f" 2. Questions-only file for AI chat: {q_path}")
     return 0
 
 

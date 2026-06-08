@@ -15,8 +15,10 @@ ANSWER_MARKER = "=== AI Answer ==="
 
 
 class ScenarioWriter:
-    def write_txt(self, package: ScenarioPackage, output_path: Path) -> None:
+    def write_txt(self, package: ScenarioPackage, output_path: Path) -> Path:
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Write main template
         blocks = []
         for case in package.cases:
             blocks.append(
@@ -27,6 +29,15 @@ class ScenarioWriter:
                 f"{ANSWER_MARKER}\n"
             )
         output_path.write_text("\n".join(blocks), encoding="utf-8")
+
+        # Write questions-only file
+        questions_path = output_path.with_name(f"{output_path.stem}_questions{output_path.suffix}")
+        q_blocks = []
+        for i, case in enumerate(package.cases, 1):
+            q_blocks.append(f"Question {i}:\n{case.question}\n")
+        questions_path.write_text("\n".join(q_blocks), encoding="utf-8")
+        
+        return questions_path
 
 
 class CaseParser:
