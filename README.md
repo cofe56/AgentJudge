@@ -64,4 +64,23 @@ JSON input can be either an array or an object with a `cases` array:
 - `customer-support` - Customer Support
 - `text-formatting` - Text Formatting
 - `text-analysis` - Text Analysis
-- `roleplay` - Roleplay
+- `mathematics` - Mathematics
+- `physics` - Physics
+- `chemistry` - Chemistry
+- `biology` - Biology
+- `history` - History
+- `geography` - Geography
+- `economics` - Economics
+- `philosophy` - Philosophy
+- `psychology` - Psychology
+- `medicine` - Medicine
+- `space-exploration` - Space Exploration
+- `machine-learning` - Machine Learning
+- `blockchain` - Blockchain
+- `game-development` - Game Development
+- `music-theory` - Music Theory
+- `art-history` - Art History
+- `law-and-ethics` - Law and Ethics
+- `cooking-and-nutrition` - Cooking and Nutrition
+- `environmental-science` - Environmental Science
+- `sports-analytics` - Sports Analytics
