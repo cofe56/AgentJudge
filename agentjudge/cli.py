@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+import json
 from pathlib import Path
 
 from agentjudge.evaluator import Evaluator
@@ -10,6 +11,21 @@ from agentjudge.files import CaseParser, ReportWriter, ScenarioWriter
 from agentjudge.providers import ApiError, ProviderConfig, ProviderFactory
 from agentjudge.scenarios import ScenarioCatalog
 
+CONFIG_PATH = Path.home() / ".agentjudge_config.json"
+
+def load_config() -> dict[str, str]:
+    if CONFIG_PATH.exists():
+        try:
+            return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+def save_config(config: dict[str, str]) -> None:
+    try:
+        CONFIG_PATH.write_text(json.dumps(config, indent=2), encoding="utf-8")
+    except Exception:
+        pass
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -98,14 +114,26 @@ def interactive_menu() -> int:
             list_scenarios()
         elif choice == "2":
             print("\n--- Template Generation ---")
-            package = input("Enter package key (e.g., programming): ").strip()
-            if not package:
+            catalog = ScenarioCatalog()
+            packages = catalog.all()
+            for i, pkg in enumerate(packages, 1):
+                print(f" {i:2d}. {pkg.key} ({pkg.title})")
+            
+            pkg_choice = input("Enter package number or key: ").strip()
+            if not pkg_choice:
                 continue
+            
+            package_key = pkg_choice
+            if pkg_choice.isdigit():
+                idx = int(pkg_choice) - 1
+                if 0 <= idx < len(packages):
+                    package_key = packages[idx].key
+                    
             out_file = input("Enter output filename (e.g., test.txt): ").strip()
             if not out_file:
                 continue
             try:
-                generate_scenario(package, out_file)
+                generate_scenario(package_key, out_file)
             except (KeyError, ValueError, FileNotFoundError) as e:
                 print(f"Error: {e}")
         elif choice == "3":
@@ -117,7 +145,18 @@ def interactive_menu() -> int:
             
             api_key = ""
             if provider != "ollama":
-                api_key = input(f"Enter API key for {provider} (leave empty to use env variable): ").strip()
+                config = load_config()
+                saved_key = config.get(provider, "")
+                if saved_key:
+                    use_saved = input(f"Saved API key found for {provider}. Use it? (Y/n) [Y]: ").strip().lower()
+                    if use_saved in ("", "y", "yes"):
+                        api_key = saved_key
+                
+                if not api_key:
+                    api_key = input(f"Enter new API key for {provider} (leave empty to use env variable): ").strip()
+                    if api_key:
+                        config[provider] = api_key
+                        save_config(config)
             
             model_name = ""
             if provider == "ollama":

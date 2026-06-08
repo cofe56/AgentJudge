@@ -9,7 +9,7 @@ description = "CLI tool for LLM-as-a-Judge evaluation of AI answers."
 requires-python = ">=3.10"
 
 [project.scripts]
-AgentJudge = "agentjudge.cli:main"
+agentjudge = "agentjudge.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["agentjudge*"]

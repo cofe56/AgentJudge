@@ -1,0 +1,2 @@
+[console_scripts]
+agentjudge = agentjudge.cli:main
